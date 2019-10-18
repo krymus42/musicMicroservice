@@ -42,7 +42,7 @@ app.get("/listSongs",(req,res)=>{ // this will respond with list of files, which
  res.send(list);
 });
 
-app.get("/:media",(req,res)=>{  // frontend will send request here to get songs path in order to set <video> source
+app.get("/:media",(req,res)=>{  // my frontend will send request here to get songs path in order to set <video> source
 let filePath;
 fs.readdirSync(path.join(__dirname+"/uploads")).forEach((file)=>{
   if(file === req.params.media)
