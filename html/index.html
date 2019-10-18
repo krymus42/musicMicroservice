@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <div id="container"><ul id="list"></ul></div>
+    <video id="video" controls><source id="source"></video>
+
+    <script type="text/javascript">
+    async function play(url){  // url which will be used by fetch to ... fetch path
+      const response = await fetch(url);
+      console.log(response);
+      console.log('clicked');
+
+    }
+
+
+    document.addEventListener("DOMContentLoaded",async ()=>{
+      const response = await  fetch("/listSongs");
+      const json = await response.json();
+      const list = document.getElementById('list');
+      json.forEach((entry)=>{
+        let li = document.createElement('li');
+        li.innerHTML = entry;
+        list.appendChild(li);
+      });
+
+     list.onclick = (event)=>{
+       console.log(event.target.innerHTML);
+       if (event.target.tagName.toLowerCase() == "li"){
+         console.log("ciupanga");
+          const source =  document.getElementById('source'); //setAttribute ("className","/"+event.target.innerHTML);
+          const video = document.getElementById('video');
+                video.pause();
+          source.setAttribute('src',"/"+event.target.innerHTML);
+          video.load();
+          video.play();
+
+     }}
+    });
+
+
+    </script>
+ <a href="/addSong">Add new song</a>
+  </body>
+</html>
